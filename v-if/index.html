@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="lib/vue.global.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>v-if</title>
+  </head>
+  <body>
+    <div id="app">
+      <p v-if="books.length === 0">無任何書本</p>
+      <h2 v-else-if="books.length === 1">{{ books[0] }}</h2>
+      <ul v-else>
+        <li v-for="book in books">{{ book }}</li>
+      </ul>
+      <p v-show="books.length === 0">無任何書本</p>
+      <ul v-show="books.length > 0">
+        <li v-for="book in books">{{ book }}</li>
+      </ul>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

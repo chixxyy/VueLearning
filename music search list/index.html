@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>搜尋</title>
+  <script src="lib/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>播放列表</h1>
+    <input type="text" placeholder="請輸入要查找的歌名" class="search" v-model="searchTerm"/>
+    <ul>
+      <li v-for="song in filteredPlaylist">{{ song }}</li>
+    </ul>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
