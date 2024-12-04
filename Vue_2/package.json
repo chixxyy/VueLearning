@@ -1,5 +1,5 @@
 {
-  "name": "16-attrs",
+  "name": "12-provide-inject-before",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
