@@ -1,11 +1,11 @@
 <template>
-  <li>{{ msg }}</li>
+  <li>{{ msg }} <button @click="$emit('remove', id)">刪除</button></li>
 </template>
 <script>
 import { ref, watch, watchEffect, toRefs } from "vue";
 
 export default {
-  props: ["msg"],
+  props: ["msg", "id"],
   setup(props) {
     return {};
   },

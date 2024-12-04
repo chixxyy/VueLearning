@@ -1,48 +1,81 @@
 <template>
   <div>
-    <ul>
+    <input type="text" placeholder="搜尋" v-model="searchTerm">
+    <h2>{{ options.title }}</h2>
+    <p>用戶：{{ options.user.name }},
+      online: {{ options.user.active ? "y" : "n" }}
+    </p>
+    <div v-if="loding">loading...</div>
+    <ul v-else> 
       <MessageListItem
-        v-for="msg in messages"
+        v-for="msg in searchedMessage"
         :key="msg.id"
+        :id="msg.id"
         :msg="msg.content"
+        @remove="removeMessage"
       ></MessageListItem>
     </ul>
     <button @click="messages = []">刪除全部</button>
+    <button @click="options.user.name = 'lilb'">修改姓名</button>
+    <button @click="options.title = '修改標題'">修改標題</button>
   </div>
 </template>
 <script>
-import { ref, watch, watchEffect, isRef } from "vue";
+import { ref, watchEffect, isRef, reactive, computed, onMounted } from "vue";
 import MessageListItem from "./MessageListItem.vue";
 
 export default {
   components: { MessageListItem },
   setup(props, { attrs }) {
-    const messages = ref([
-      { id: 1, content: "这是一条消息提醒1" },
-      { id: 2, content: "这是一条消息提醒2" },
-      { id: 3, content: "这是一条消息提醒3" },
-      { id: 4, content: "这是一条消息提醒4" },
-    ]);
+    const loding = ref( false );
+    onMounted(() => {
+      loding.value = true;
+      setTimeout(() => {
+        messages.value = [
+        { id: 1, content: "消息提醒1" },
+        { id: 2, content: "消息提醒2" },
+        { id: 3, content: "消息提醒3" },
+        { id: 4, content: "消息提醒4" },
+        ];
+        loding.value = false;
+      }, 2000);
+    })
+    const messages = ref([]);
+
+    const options = ref({
+      title:"消息列表",
+      user: {
+        name: "lila",
+        active: true,
+      },
+    });
+
+    const searchTerm = ref("");
+
+    const searchedMessage = computed(() => {
+      if (searchTerm.value === "") return messages.value;
+      return messages.value.filter((msg) => {
+        return msg.content.includes(searchTerm.value);
+      });
+    });
 
     console.log(attrs);
     console.log(attrs.class);
     console.log(attrs["data-title"]);
 
-    // 拆解出来，不再具有响应性
     // const { test } = attrs;
 
-    // watchEffect(() => {
-    //   console.log(test, " in MessageList.vue");
-    // });
-
     watchEffect(() => {
+      console.log(options.value.title);
+      console.log(options.value.user.name);
       console.log(attrs.test, " in MessageList.vue");
     });
 
-    // console.log(attrs);
-    // console.log(attrs.class);
+    function removeMessage(id) {
+      messages.value = messages.value.filter((msg) => msg.id !== id);
+    }
 
-    return { messages };
+    return { messages, searchTerm, searchedMessage, options, removeMessage, loding };
   },
 };
 </script>
