@@ -1,15 +1,9 @@
 <template>
   <li>{{ msg }} <button @click="$emit('remove', id)">刪除</button></li>
 </template>
-<script>
-import { ref, watch, watchEffect, toRefs } from "vue";
-
-export default {
-  props: ["msg", "id"],
-  setup(props) {
-    return {};
-  },
-};
+<script setup>
+defineProps(["msg", "id" ]);
+defineEmits(["remove"]);
 </script>
 <style scoped>
 li {

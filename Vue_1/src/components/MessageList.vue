@@ -3,7 +3,7 @@
     <input type="text" placeholder="搜尋" v-model="searchTerm">
     <h2>{{ options.title }}</h2>
     <p>用戶：{{ options.user.name }},
-      online: {{ options.user.active ? "y" : "n" }}
+      online: {{ options.user.active ? "線上" : "離線" }}
     </p>
     <div v-if="loding">loading...</div>
     <ul v-else> 
@@ -16,17 +16,15 @@
       ></MessageListItem>
     </ul>
     <button @click="messages = []">刪除全部</button>
-    <button @click="options.user.name = 'lilb'">修改姓名</button>
+    <button @click="options.user.name = '小美'">修改姓名</button>
+    <button @click="options.user.active = false">隱藏上線</button>
     <button @click="options.title = '修改標題'">修改標題</button>
   </div>
 </template>
-<script>
+<script setup>
 import { ref, watchEffect, isRef, reactive, computed, onMounted } from "vue";
 import MessageListItem from "./MessageListItem.vue";
 
-export default {
-  components: { MessageListItem },
-  setup(props, { attrs }) {
     const loding = ref( false );
     onMounted(() => {
       loding.value = true;
@@ -45,7 +43,7 @@ export default {
     const options = ref({
       title:"消息列表",
       user: {
-        name: "lila",
+        name: "小明",
         active: true,
       },
     });
@@ -59,25 +57,9 @@ export default {
       });
     });
 
-    console.log(attrs);
-    console.log(attrs.class);
-    console.log(attrs["data-title"]);
-
-    // const { test } = attrs;
-
-    watchEffect(() => {
-      console.log(options.value.title);
-      console.log(options.value.user.name);
-      console.log(attrs.test, " in MessageList.vue");
-    });
-
     function removeMessage(id) {
       messages.value = messages.value.filter((msg) => msg.id !== id);
     }
-
-    return { messages, searchTerm, searchedMessage, options, removeMessage, loding };
-  },
-};
 </script>
 <style scoped>
 div {

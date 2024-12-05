@@ -6,24 +6,8 @@
   </main>
 </template>
 
-<script>
+<script setup>
 import MessageList from "./components/MessageList.vue";
-import { ref } from "vue";
-
-export default {
-  components: {
-    MessageList,
-  },
-  setup() {
-    const test = ref("test");
-
-    setTimeout(() => {
-      test.value = "changed";
-    }, 2000);
-
-    return { test };
-  },
-};
 </script>
 
 <style>

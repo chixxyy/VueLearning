@@ -4,17 +4,24 @@
   </div>
 </template>
 <script>
+import { provide, ref, toRef } from "vue";
 import MovieItem from "./MovieItem.vue";
 export default {
   components: {
     MovieItem,
   },
   setup() {
-    const movie = {
-      title: "电影",
-      description: "这是一段电影的描述",
-    };
+    const movie = ref({
+      title: "一部好戲",
+      description: "保安！可以這樣打了又打打了又打嗎？",
+    });
 
+    provide("title", toRef(movie.value, "title"));    
+
+    setTimeout(() => {
+      movie.value.title = "上等好戲";
+    }, 3000);
+    
     return { movie };
   },
 };
