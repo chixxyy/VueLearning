@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana, "PingFang SC", "Microsoft Yahei", sans-serif;
+}
+
+button {
+  border: none;
+  background: linear-gradient(45deg, #7452ff 0%, #ae78ff 99%, #e15dff 100%);
+  padding: 12px 24px;
+  border-radius: 24px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+select {
+  border: none;
+  background: #eee;
+  padding: 12px 24px;
+  border-radius: 24px;
+}
+
+img {
+  width: 100%;
+  object-fit: cover;
+}
