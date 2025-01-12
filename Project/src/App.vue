@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, type Ref ,reactive ,computed } from 'vue'
-import ShopIcon from './components/Icon/ShopIcon.vue'
-import ProductItem from './components/ProductItem.vue'
-import ActionFilter from './components/ActionFilter.vue'
+import { reactive, ref, type Ref } from "vue";
+import ShopIcon from "./components/Icon/ShopIcon.vue";
+import ProductItem from "./components/ProductItem.vue";
+import ActionAndFilters from "./components/ActionAndFilters.vue";
+import { computed } from "@vue/reactivity";
 
 interface Product {
   id: number;
@@ -22,10 +23,10 @@ const products = ref<Product[]>([
   },
   {
     id: 2,
-    title: "潮T",
-    price: 72,
+    title: "西裝",
+    price: 128,
     inStock: true,
-    imageUrl: "/images/t-shirt2.jpg",
+    imageUrl: "/images/jacket1.jpg",
   },
   {
     id: 3,
@@ -36,18 +37,18 @@ const products = ref<Product[]>([
   },
   {
     id: 4,
-    title: "夾克",
-    price: 128,
+    title: "潮T",
+    price: 72,
     inStock: true,
-    imageUrl: "/images/jacket1.jpg",
+    imageUrl: "/images/t-shirt2.jpg",
   },
-])
+]);
 
-type SortDirection = 'asc' | 'desc' | ""
+type SortDirections = "asc" | "desc" | "";
 
 interface SortAndFilter {
-  price: SortDirection;
-  name: SortDirection;
+  price: SortDirections;
+  name: SortDirections;
   inStock: boolean | null;
 }
 
@@ -58,7 +59,7 @@ const sortAndFilter: SortAndFilter = reactive({
 });
 
 const productResult = computed(() => {
-    return products.value
+  return products.value
     .filter((p) =>
       sortAndFilter.inStock === null
         ? true
@@ -79,8 +80,8 @@ const productResult = computed(() => {
     });
 });
 
-function handSortPrice() {
-  if(sortAndFilter.price === "asc") {
+function handleSortByPrice() {
+  if (sortAndFilter.price === "asc") {
     sortAndFilter.price = "desc";
   } else {
     sortAndFilter.price = "asc";
@@ -88,8 +89,8 @@ function handSortPrice() {
   sortAndFilter.name = "";
 }
 
-function handSortName() {
-  if(sortAndFilter.name === "asc") {
+function handleSortByName() {
+  if (sortAndFilter.name === "asc") {
     sortAndFilter.name = "desc";
   } else {
     sortAndFilter.name = "asc";
@@ -97,23 +98,20 @@ function handSortName() {
   sortAndFilter.price = "";
 }
 
-function handleFilterStock(inStock: boolean | null) {
+function handleFilterByStock(inStock: boolean | null) {
   sortAndFilter.inStock = inStock;
 }
-
 </script>
 
 <template>
   <main>
-    <h1><ShopIcon />加油讚</h1>
-    
-    <div class="productsList">
-      <ActionFilter 
-        @sort-by-price="handSortPrice"
-        @sort-by-name="handSortName"
-        @filter-stock="handleFilterStock"
-      >
-      </ActionFilter>
+    <h1><ShopIcon />V x TS小商店</h1>
+    <ActionAndFilters
+      @sort-by-price="handleSortByPrice"
+      @sort-by-name="handleSortByName"
+      @filter-by-stock="handleFilterByStock"
+    />
+    <div class="productList">
       <ProductItem
         v-for="product in productResult"
         :key="product.id"
@@ -129,9 +127,9 @@ function handleFilterStock(inStock: boolean | null) {
 main {
   display: grid;
   place-items: center;
-  gap: 30px;
+  gap: 48px;
   width: 100vw;
-  padding: 20px;
+  padding: 24px;
 }
 
 h1 {
@@ -147,7 +145,7 @@ h1 svg {
 .productList {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 48px;
   width: 60%;
 }
 </style>
