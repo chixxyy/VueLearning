@@ -105,7 +105,7 @@ function handleFilterByStock(inStock: boolean | null) {
 
 <template>
   <main>
-    <h1><ShopIcon />V x TS小商店</h1>
+    <h1><ShopIcon />V x TS 商店</h1>
     <ActionAndFilters
       @sort-by-price="handleSortByPrice"
       @sort-by-name="handleSortByName"
