@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { reactive, ref, computed } from "vue";
+import { reactive, ref, computed, provide, type InjectionKey, type Ref } from "vue";
 import ShopIcon from "./components/Icon/ShopIcon.vue";
 import ProductItem from "./components/ProductItem.vue";
 import ActionAndFilters from "./components/ActionAndFilters.vue";
+import { Theme } from "./components/keys/Theme";
 
 interface Product {
   id: number;
@@ -47,6 +48,10 @@ function toggleSort(property: 'price' | 'name') {
 function handleFilterByStock(inStock: boolean | null) {
   sortAndFilter.inStock = inStock;
 }
+
+provide(Theme, "dark");
+
+provide("siteTitle", "V x TS 商店");
 </script>
 
 <template>

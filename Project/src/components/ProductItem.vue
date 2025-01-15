@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { inject, defineProps } from "vue";
+import { Theme } from "./keys/Theme";
 
 interface Props {
   title: string;
@@ -16,6 +18,12 @@ const formattedPrice = computed(() => {
     currency: 'TWD'
   }).format(props.price);
 });
+
+const theme = inject(Theme);
+console.log(theme);
+
+const siteTitle = inject<string>("siteTitle");
+console.log(siteTitle);
 </script>
 
 <template>
