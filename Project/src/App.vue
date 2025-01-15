@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, computed, provide, type InjectionKey, type Ref } from "vue";
+import { reactive, ref, computed, provide, type InjectionKey, type Ref, onMounted } from "vue";
 import ShopIcon from "./components/Icon/ShopIcon.vue";
 import ProductItem from "./components/ProductItem.vue";
 import ActionAndFilters from "./components/ActionAndFilters.vue";
@@ -52,6 +52,14 @@ function handleFilterByStock(inStock: boolean | null) {
 provide(Theme, "dark");
 
 provide("siteTitle", "V x TS 商店");
+
+const actionAndFiltersRef = ref<InstanceType<typeof ActionAndFilters> | null>(
+  null
+);
+
+onMounted(() => {
+  console.log(actionAndFiltersRef.value);
+});
 </script>
 
 <template>
@@ -61,6 +69,7 @@ provide("siteTitle", "V x TS 商店");
       @sort-by-price="() => toggleSort('price')"
       @sort-by-name="() => toggleSort('name')"
       @filter-by-stock="handleFilterByStock"
+      ref="actionAndFiltersRef"
     />
     <div class="productList">
       <ProductItem
