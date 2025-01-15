@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { inject, defineProps } from "vue";
+import { inject } from "vue";
 import { Theme } from "./keys/Theme";
 
 interface Props {
